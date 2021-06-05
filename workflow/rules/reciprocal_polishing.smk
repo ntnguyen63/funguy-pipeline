@@ -62,7 +62,8 @@ class PolishPipeline:
       if not Path(polish).is_file():
         raise Exception(f"medaka was unable to polish {busco_result.contigs} on round {i}")
 
-      new_busco_result = run_busco(polish, f"{out_dir}/busco_out", f"{get_lineage}_odb10")
+      lineage=get_lineage
+      new_busco_result = run_busco(polish, f"{out_dir}/busco_out", lineage+'_odb10')
 
       #just ran first polish or the nth polish has improved assembly
       if is_first(busco_result) or is_improved(new_busco_result, busco_result):
@@ -99,8 +100,9 @@ class PolishPipeline:
 
       if not Path(polish).is_file():
         raise Exception(f"pilon was unable to polish {busco_result.contigs} on round {i}")
-      
-      new_busco_result = run_busco(polish, f"{pilon_out}/busco_out", f"{get_lineage}_odb10")
+
+      lineage=get_lineage
+      new_busco_result = run_busco(polish, f"{pilon_out}/busco_out", lineage+'_odb10')
 
       #just ran busco for the best time
       if is_first(busco_result) or is_improved(new_busco_result, busco_result):
